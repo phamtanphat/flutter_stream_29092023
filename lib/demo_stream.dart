@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 // class DemoStream extends StatefulWidget {
@@ -27,10 +29,30 @@ void main() {
   // streamIterable.listen((event) { print(event); });
 
   // 3: Khoi tao bang periodic
-  Stream<int> streamNumber =
-      Stream.periodic(Duration(seconds: 1), (count) => count);
+  // Stream<int> streamNumber =
+  //     Stream.periodic(Duration(seconds: 1), (count) => count);
+  //
+  // streamNumber.listen((event) {
+  //   print(event);
+  // });
 
-  streamNumber.listen((event) {
+  // 4: StreamController
+
+  StreamController<int> streamControllerNumber = StreamController();
+
+  streamControllerNumber.stream.listen((event) {
     print(event);
+  });
+
+  Future.delayed(Duration(seconds: 1), () {
+    streamControllerNumber.sink.add(10);
+  });
+
+  Future.delayed(Duration(seconds: 2), () {
+    streamControllerNumber.sink.add(20);
+  });
+
+  Future.delayed(Duration(seconds: 3), () {
+    streamControllerNumber.sink.add(30);
   });
 }
